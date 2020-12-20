@@ -27,7 +27,7 @@ def message_handler(update: Update, context: CallbackContext):
     generated_text = subprocess.run("python3 "
                                     "/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/generate_transformers.py "
                                     "--model_type=gpt2 "
-                                    "--model_name_or_path=/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/model_from_web "
+                                    "--model_name_or_path=/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/model_from_web/ckpt_60000/ "
                                     "--k=20 --p=0.9 --prompt='{}' --length=100".format(my_text), shell=True, capture_output=True)
     decoded_generated_text = generated_text.stdout.decode()
     response = post_processing(str(decoded_generated_text))
@@ -44,7 +44,7 @@ def main():
 
     bot = Bot(
         request=req,
-        token='1177059750:AAHMtxoYvt71kF_TWhvxJsTdN4dFV6a0Iag',
+        token='1487513251:AAGuqREy6i6xqATYxrwN9DvlWAJS2ioBk3M',
         base_url="https://telegg.ru/orig/bot",
     )
     updater = Updater(
