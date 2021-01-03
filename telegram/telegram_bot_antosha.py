@@ -1,5 +1,4 @@
 import subprocess
-import telegram
 from telegram import Update
 from telegram import Bot
 from telegram.ext import CallbackContext
@@ -7,7 +6,7 @@ from telegram.ext import Updater
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
 from telegram.utils.request import Request
-from post_processing import post_processing
+from telegram.post_processing import post_processing
 
 
 def log_error(f):

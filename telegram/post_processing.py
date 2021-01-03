@@ -25,11 +25,11 @@ def post_processing(str_input):
                         .replace("- то", "-то")
                         .replace("- с", "-с")
                         .replace("- ка", "-ка")
+                        .replace("по- ", "по-")
                         )
     pre_output = re.sub(r'\( ', "(", new_clean_string)
     output_string = re.sub(r'\s\)', ")", pre_output)
     output_phrases = sent_tokenize(output_string)
-    print(output_phrases)
     return " ".join(output_phrases[0:-1])
 
 

@@ -11,9 +11,9 @@ cmd_args_p = "--p=0.9"
 cmd_args_prompt = "--prompt='{}'".format(text)
 
 p1 = subprocess.run("python3 "
-                    "/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/generate_transformers.py "
+                    "generate_transformers.py "
                     "--model_type=gpt2 "
-                    "--model_name_or_path=/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/model_from_web "
+                    "--model_name_or_path=/Users/dmitriosipov/my_research/deep_learning/text_generation/telegram-chat-bot/ru-gpts-telegram/model_from_web "
                     "--k=20 --p=0.9 --prompt='куда вы ушли'", shell=True, capture_output=True)
 
 
