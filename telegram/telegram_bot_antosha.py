@@ -6,7 +6,8 @@ from telegram.ext import Updater
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
 from telegram.utils.request import Request
-from telegram.post_processing import post_processing
+from post_processing import post_processing
+from pathlib import Path
 
 
 def log_error(f):
@@ -22,11 +23,11 @@ def log_error(f):
 @log_error
 def message_handler(update: Update, context: CallbackContext):
     my_text = update.message.text
-    generated_text = subprocess.run("python3 "
+    generated_text = subprocess.run(f"python3 "
                                     "/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/generate_transformers.py "
                                     "--model_type=gpt2 "
-                                    "--model_name_or_path=/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/model_from_web/ckpt_60000/ "
-                                    "--k=20 --p=0.9 --prompt='{}' --length=100".format(my_text), shell=True, capture_output=True)
+                                    "--model_name_or_path=/home/dmitri/Forschung/text_generation/ru-gpts-for-telegram/model_from_web/lines_1024_from_batches/ "
+                                    f"--k=20 --p=0.9 --prompt='{my_text}' --length=100", shell=True, capture_output=True)
     decoded_generated_text = generated_text.stdout.decode()
     response = post_processing(str(decoded_generated_text))
     update.message.reply_text(text=str(response))

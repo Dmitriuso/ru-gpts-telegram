@@ -5,15 +5,20 @@ from telegram.ext import Updater
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
 from post_processing import post_processing
+from pathlib import Path
+
+model = Path('model_from_web/lines_1024_batches').absolute()
+launch_file = Path('generate_transformers.py').absolute()
 
 
 def message_handler(update: Update, context: CallbackContext):
     my_text = update.message.text
-    generated_text = subprocess.run("python3 "
-                                    "/Users/dmitriosipov/my_research/deep_learning/text_generation/telegram-chat-bot/ru-gpts-telegram/generate_transformers.py "
-                                    "--model_type=gpt2 "
-                                    "--model_name_or_path=/Users/dmitriosipov/my_research/deep_learning/text_generation/telegram-chat-bot/ru-gpts-telegram/model_from_web/lines_1024_batches "
-                                    "--k=20 --p=0.9 --prompt='{}' --length=150".format(my_text), shell=True, capture_output=True)
+    generated_text = subprocess.run(f"python3 {launch_file} "
+                                    f"--model_type=gpt2 "
+                                    f"--model_name_or_path={model} "
+                                    f"--k=20 --p=0.9 --prompt='{my_text}' --length=150",
+                                    shell=True, capture_output=True
+                                    )
     decoded_generated_text = generated_text.stdout.decode()
     response = post_processing(str(decoded_generated_text))
     update.message.reply_text(text=str(response))
